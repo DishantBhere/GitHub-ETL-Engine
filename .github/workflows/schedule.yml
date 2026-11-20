@@ -42,6 +42,43 @@ jobs:
           path: GitHub_Trending_Dashboard.xlsx
 
       - name: Commit refreshed files
+            - name: Email summary
+        if: always()
+        env:
+          MAIL_USER: ${{ secrets.MAIL_USER }}
+          MAIL_PASS: ${{ secrets.MAIL_PASS }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          STATUS: ${{ job.status }}
+          TRIGGER: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python - <<'EOF'
+          import os, ssl, smtplib
+          from email.message import EmailMessage
+          e = os.environ
+          m = EmailMessage()
+          m["Subject"] = f"ETL {e['STATUS']}: {e['REPO']}"
+          m["From"] = e["MAIL_USER"]
+          m["To"] = e["MAIL_TO"]
+          m.set_content(
+              f"Status: {e['STATUS']}\n"
+              f"Trigger: {e['TRIGGER']}\n"
+              f"Run: {e['RUN_URL']}\n"
+              f"Repo: https://github.com/{e['REPO']}\n"
+          )
+          if e["STATUS"] == "success":
+              with open("GitHub_Trending_Dashboard.xlsx", "rb") as f:
+                  m.add_attachment(
+                      f.read(),
+                      maintype="application",
+                      subtype="vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                      filename="GitHub_Trending_Dashboard.xlsx",
+                  )
+          with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl.create_default_context()) as s:
+              s.login(e["MAIL_USER"], e["MAIL_PASS"])
+              s.send_message(m)
+          EOF
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
