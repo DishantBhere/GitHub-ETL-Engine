@@ -1,10 +1,11 @@
 name: Daily GitHub ETL
-run-name: "ETL (${{ github.event_name }})"   # Actions list shows: schedule / workflow_dispatch
+
+run-name: "ETL (${{ github.event_name }})"
 
 on:
   schedule:
     - cron: "56 10 * * *"
-  workflow_dispatch:            # manual button
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -42,7 +43,15 @@ jobs:
           path: GitHub_Trending_Dashboard.xlsx
 
       - name: Commit refreshed files
-            - name: Email summary
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add github_repos.db data/ GitHub_Trending_Dashboard.xlsx
+          git diff --cached --quiet || git commit -m "chore: refresh (${{ github.event_name }}) $(date -u +%F\ %H:%M)"
+          git pull --rebase origin main
+          git push
+
+      - name: Email summary
         if: always()
         env:
           MAIL_USER: ${{ secrets.MAIL_USER }}
@@ -79,10 +88,3 @@ jobs:
               s.login(e["MAIL_USER"], e["MAIL_PASS"])
               s.send_message(m)
           EOF
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add github_repos.db data/ GitHub_Trending_Dashboard.xlsx
-          git diff --cached --quiet || git commit -m "chore: refresh (${{ github.event_name }}) $(date -u +%F\ %H:%M)"
-          git pull --rebase origin main
-          git push
