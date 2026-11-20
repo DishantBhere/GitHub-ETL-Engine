@@ -3,9 +3,7 @@ run-name: "ETL (${{ github.event_name }})"   # Actions list shows: schedule / wo
 
 on:
   schedule:
-    # GitHub cron = UTC. IST = UTC + 5:30. "37 3 * * *" = 9:07 AM IST.
-    # Odd minute on purpose: :00 / :30 slots get delayed or dropped under load.
-    - cron: "37 3 * * *"
+    - cron: "56 10 * * *"
   workflow_dispatch:            # manual button
 
 permissions:
