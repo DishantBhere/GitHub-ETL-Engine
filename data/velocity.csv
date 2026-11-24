@@ -1,11 +1,11 @@
 name,stars_per_hour,stars,age_days,language
+VIctory,608.08,5303,0.4,Rust
 Leonida,439.82,32616,3.1,Python
 Leonida,383.29,26981,2.9,Python
-craft-anything,75.2,42069,23.3,Rust
-fast-anything,55.21,3070,2.3,Rust
-rust-anything,48.7,8673,7.4,Rust
+craft-anything,74.55,42319,23.7,Rust
+xcl,55.05,4539,3.4,Rust
+fast-anything,51.43,3283,2.7,Rust
+rust-anything,47.57,8863,7.8,Rust
 dsh-Go,43.28,30737,29.6,Dart
-dsh-superagent-prototype,43.12,24353,23.5,TypeScript
 Wireless-Device-Battery-Monitor,42.9,6118,5.9,C++
-unslop,34.3,20804,25.3,JavaScript
-misterdownloadmanager,27.78,17250,25.9,Rust
+dsh-superagent-prototype,42.59,24400,23.9,TypeScript
