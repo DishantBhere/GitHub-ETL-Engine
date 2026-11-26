@@ -1,11 +1,11 @@
 name,stars_per_hour,stars,age_days,language
 Leonida,439.82,32616,3.1,Python
 Leonida,383.29,26981,2.9,Python
-VIctory,268.39,12471,1.9,Rust
-victory-fork,112.7,2954,1.1,Rust
-craft-anything,71.71,43416,25.2,Rust
-xcl,68.73,8261,5.0,Rust
+VIctory,225.08,12767,2.4,Rust
+victory-fork,86.37,3150,1.5,Rust
+craft-anything,70.97,43693,25.7,Rust
+xcl,64.22,8378,5.4,Rust
 xcl,55.05,4539,3.4,Rust
-leonida,51.57,2287,1.8,Python
+leonida,43.57,2379,2.3,Python
+portwatch-vi,43.51,4492,4.3,JavaScript
 dsh-Go,43.28,30737,29.6,Dart
-Wireless-Device-Battery-Monitor,42.9,6118,5.9,C++
